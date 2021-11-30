@@ -32,16 +32,34 @@ class ViewController: UIViewController {
     
     private func setupView() {
         setupDiagramContainerView()
+        addTopBackGroundLayer()
     }
     
     private func addTopBackGroundLayer() {
-        mainBackgroundView.layoutIfNeeded()
-        let halfWidth = mainBackgroundView.frame.height / 2
+        self.view.layoutIfNeeded()
+        let halfHeight = mainBackgroundView.frame.height / 2
+        let halfWidth = mainBackgroundView.frame.width / 2
         let topLeftPoint = CGPoint(x: mainBackgroundView.frame.origin.x, y: mainBackgroundView.frame.origin.y)
         let topRightPoint = CGPoint(x: mainBackgroundView.frame.width + topLeftPoint.x, y: topLeftPoint.y)
-        let midleLeftPoint = CGPoint(x: topLeftPoint.x, y: halfWidth)
-        let midleRightPoint = CGPoint(x: topRightPoint.x, y: halfWidth)
+        let midleRightPoint = CGPoint(x: topRightPoint.x, y: halfHeight)
+        let midleLeftPoint = CGPoint(x: topLeftPoint.x, y: halfHeight)
         
+        let path = UIBezierPath()
+        let controlPoint: CGPoint = CGPoint(x: halfWidth, y: halfHeight + 150)
+        
+        path.move(to: topLeftPoint)
+        path.addLine(to: topRightPoint)
+        path.addLine(to: midleRightPoint)
+        path.addQuadCurve(to: midleLeftPoint, controlPoint: controlPoint)
+        path.addLine(to: topLeftPoint)
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = path.cgPath
+        shapeLayer.strokeColor = UIColor.clear.cgColor
+        shapeLayer.fillColor = AppColors.lightGray.color.cgColor
+        shapeLayer.lineWidth = 0
+        
+        mainBackgroundView.layer.addSublayer(shapeLayer)
     }
     
     private func setupDiagramContainerView() {

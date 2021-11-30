@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65074A3F2756814E00DD2374 /* AppCollors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65074A3E2756814D00DD2374 /* AppCollors.xcassets */; };
+		65074A412756821200DD2374 /* AppCollors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65074A402756821200DD2374 /* AppCollors.swift */; };
 		65F51AAF2750E5520019028C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F51AAE2750E5520019028C /* AppDelegate.swift */; };
 		65F51AB12750E5520019028C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F51AB02750E5520019028C /* SceneDelegate.swift */; };
 		65F51AB32750E5520019028C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F51AB22750E5520019028C /* ViewController.swift */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		65074A3E2756814D00DD2374 /* AppCollors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = AppCollors.xcassets; sourceTree = "<group>"; };
+		65074A402756821200DD2374 /* AppCollors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCollors.swift; sourceTree = "<group>"; };
 		65F51AAB2750E5520019028C /* PieDiagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PieDiagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65F51AAE2750E5520019028C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65F51AB02750E5520019028C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +110,8 @@
 				65F51AB22750E5520019028C /* ViewController.swift */,
 				65F51AB42750E5520019028C /* Main.storyboard */,
 				65F51AB72750E5540019028C /* Assets.xcassets */,
+				65074A3E2756814D00DD2374 /* AppCollors.xcassets */,
+				65074A402756821200DD2374 /* AppCollors.swift */,
 				65F51AB92750E5540019028C /* LaunchScreen.storyboard */,
 				65F51ABC2750E5540019028C /* Info.plist */,
 				65F51ADE2750EE780019028C /* Extension */,
@@ -244,6 +250,7 @@
 			files = (
 				65F51ABB2750E5540019028C /* LaunchScreen.storyboard in Resources */,
 				65F51AB82750E5540019028C /* Assets.xcassets in Resources */,
+				65074A3F2756814E00DD2374 /* AppCollors.xcassets in Resources */,
 				65F51AB62750E5520019028C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,6 +280,7 @@
 				65F51AB32750E5520019028C /* ViewController.swift in Sources */,
 				65F51AAF2750E5520019028C /* AppDelegate.swift in Sources */,
 				65F51AB12750E5520019028C /* SceneDelegate.swift in Sources */,
+				65074A412756821200DD2374 /* AppCollors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
