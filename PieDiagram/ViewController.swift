@@ -12,7 +12,14 @@ struct CornerPoint {
     var centerPoint: CGPoint
     var startAngle:  CGFloat
     var endAngle: CGFloat
-} ;
+}
+
+struct Polygon {
+    let outerOne: CGPoint
+    let outerTwo: CGPoint
+    let innerOne: CGPoint
+    let innerTwo: CGPoint
+}
 
 class ViewController: UIViewController {
 
@@ -22,7 +29,15 @@ class ViewController: UIViewController {
     private var bPoint: CGPoint = CGPoint()
     private var cPoints: [CGPoint] = []
     
+    
+    private var aCalculatedPoints: [CGPoint] = []
+    private var cCalculatedPoints: [CGPoint] = []
+    
     private var someLines: [CGPoint] = []
+    
+    private var polygons: [Polygon] = []
+    private var outerPoint: [(CGPoint, CGPoint)] = []
+    private var innerPoint: [(CGPoint, CGPoint)] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +45,67 @@ class ViewController: UIViewController {
         setupView()
         print("HEIGHT \(diagramContainerView.frame.height)")
         print("WIDTH \(diagramContainerView.frame.width)")
+        calculateAPoints(radiusMultiplier: 1)
+//        calculateAPoints(radiusMultiplier: 0.9)
+//        calculateAPoints(radiusMultiplier: 0.8)
+//        calculateAPoints(radiusMultiplier: 0.7)
+//        calculateAPoints(radiusMultiplier: 0.6)
+//        calculateAPoints(radiusMultiplier: 0.5)
+//        calculateAPoints(radiusMultiplier: 0.4)
+//        calculateAPoints(radiusMultiplier: 0.3)
+//        calculateAPoints(radiusMultiplier: 0.2)
+//        calculateAPoints(radiusMultiplier: 0.1)
+        
+        calculatePoints(radiusMultiplier: 1, isOuter: true)
+    }
+    
+    private func getPolygons() {
+        
+    }
+    
+    private func calculatePoints(radiusMultiplier: CGFloat, isOuter: Bool) {
+        var startPoint: CGPoint
+        var endPoint: CGPoint
+        let radius: CGFloat = (diagramContainerView.frame.width / 2) * radiusMultiplier
+        let center: CGPoint = CGPoint(x: diagramContainerView.frame.width / 2, y: diagramContainerView.frame.height / 2)
+        
+        for index in 0 ..< angles.count {
+            let startX = radius * cos(angles[index].0 * .pi / 180)
+            let startY = radius * sin(angles[index].0 * .pi / 180)
+            let endX = radius * cos(angles[index].1 * .pi / 180)
+            let endY = radius * sin(angles[index].1 * .pi / 180)
+            startPoint = CGPoint(x: center.x + startX, y: center.y + startY)
+            endPoint = CGPoint(x: center.x + endX, y: center.y + endY)
+            
+            isOuter ? outerPoint.append((startPoint, endPoint))
+        }
+    }
+    
+    // MARK: - Working Method
+    let angles: [(CGFloat, CGFloat)] = [(341, 16), (17, 52), (53, 88), (89, 124), (125, 160), (161, 196), (197, 232), (233, 268), (269, 304), (305, 340)]
+    private func calculateAPoints(radiusMultiplier: CGFloat) {
+        var startPoint: CGPoint
+        var endPoint: CGPoint
+        let radius: CGFloat = (diagramContainerView.frame.width / 2) * radiusMultiplier
+        let center: CGPoint = CGPoint(x: diagramContainerView.frame.width / 2, y: diagramContainerView.frame.height / 2)
+        
+        for index in 0 ..< angles.count {
+            let startX = radius * cos(angles[index].0 * .pi / 180)
+            let startY = radius * sin(angles[index].0 * .pi / 180)
+            let endX = radius * cos(angles[index].1 * .pi / 180)
+            let endY = radius * sin(angles[index].1 * .pi / 180)
+            startPoint = CGPoint(x: center.x + startX, y: center.y + startY)
+            endPoint = CGPoint(x: center.x + endX, y: center.y + endY)
+            print("INDEX=\(index)")
+            print("POINT=\(startPoint)")
+            let startPointView: UIView = UIView(frame: CGRect(x: startPoint.x, y: startPoint.y, width: 2, height: 2))
+            startPointView.backgroundColor = .black
+            let endPointView: UIView = UIView(frame: CGRect(x: endPoint.x, y: endPoint.y, width: 2, height: 2))
+            endPointView.backgroundColor = .red
+                                   
+            diagramContainerView.addSubview(startPointView)
+            diagramContainerView.addSubview(endPointView)
+        }
     }
     
     private func fillPoints() {
@@ -70,13 +146,13 @@ class ViewController: UIViewController {
             CGPoint(x: (diagramContainerView.frame.width / 2) + 89, y: 32),
         ]
     }
-    var startAngle: CGFloat = .pi * 3 / 10
-    var endAngle: CGFloat = .pi * 5 / 10
+    var startAngle: CGFloat = cos(.pi * 3 / 10)
+    var endAngle: CGFloat = sin(.pi * 5 / 10)
     var clockwise: Bool = true
 
     func updatePath() {
         /// Radius of center of this arc
-        var radius: CGFloat = (diagramContainerView.frame.width / 2) - 50
+        var radius: CGFloat = (diagramContainerView.frame.width / 2)
         /// The linewidth of this thick arc
         var lineWidth: CGFloat = (diagramContainerView.frame.width / 2)
         /// The corner radius of this thick arc
@@ -88,7 +164,7 @@ class ViewController: UIViewController {
         let outerRadius = radius + (lineWidth / 2)
         let outerAngularDelta = asin(cornerRadius / outerRadius)
 
-        let path = UIBezierPath(arcCenter: center, radius: innerRadius, startAngle: startAngle + innerAngularDelta, endAngle: endAngle - innerAngularDelta, clockwise: clockwise)
+        let path = UIBezierPath(arcCenter: center, radius: 0, startAngle: startAngle + innerAngularDelta, endAngle: endAngle - innerAngularDelta, clockwise: clockwise)
         path.addArc(withCenter: center, radius: outerRadius, startAngle: endAngle - outerAngularDelta, endAngle: startAngle + outerAngularDelta, clockwise: !clockwise)
         path.close()
 
@@ -106,7 +182,7 @@ class ViewController: UIViewController {
     private func setupView() {
         setupDiagramContainerView()
         fillPoints()
-        updatePath()
+//        updatePath()
 //        guard let adcIntersect = linesCross(start1: someLines[0], end1: someLines[1], start2: someLines[2], end2: someLines[3]) else { return }
 //        let adcIntersectPoint = CGPoint(x: adcIntersect.x, y: adcIntersect.y)
 //        guard let bcaIntersect = linesCross(start1: someLines[2], end1: someLines[3], start2: someLines[4], end2: someLines[5]) else { return }
