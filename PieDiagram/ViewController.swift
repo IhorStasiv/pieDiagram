@@ -33,6 +33,7 @@ class ViewController: UIViewController {
     private func setupView() {
         setupDiagramContainerView()
         addTopBackGroundLayer()
+        changeImageAction()
     }
     
     private func addTopBackGroundLayer() {
@@ -67,34 +68,20 @@ class ViewController: UIViewController {
         self.diagramContainerView.layer.cornerRadius = diagramContainerView.frame.size.height / 2
     }
     
-    private func changeImageAction(slider: UISlider) {
-//        switch slider {
-//        case firstSlider:
-//            choseDiagramImagee(fill: slider.value, imageView: firstBlockImageView, name: "One")
-//        case secondSlider:
-//            choseDiagramImagee(fill: slider.value, imageView: secondBlockImageView, name: "Two")
-//        case thirdSlider:
-//            choseDiagramImagee(fill: slider.value, imageView: thirdBlockImageView, name: "Three")
-//        case fourSlider:
-//            choseDiagramImagee(fill: slider.value, imageView: fourBlockImageView, name: "Four")
-//        case fiveSlider:
-//            choseDiagramImagee(fill: slider.value, imageView: fiveBlockImageView, name: "Five")
-//        case sixSlider:
-//            choseDiagramImagee(fill: slider.value, imageView: sixBlockImageView, name: "Six")
-//        case sevenSlider:
-//            choseDiagramImagee(fill: slider.value, imageView: sevenBlockImageView, name: "Seven")
-//        case eightSlider:
-//            choseDiagramImagee(fill: slider.value, imageView: eightBlockImageView, name: "Eight")
-//        case nineSlider:
-//            choseDiagramImagee(fill: slider.value, imageView: nineBlockImageView, name: "Nine")
-//        case tenSlider:
-//            choseDiagramImagee(fill: slider.value, imageView: tenBlockImageView, name: "Ten")
-//        default:
-//            break
-//        }
+    private func changeImageAction() {
+        choseDiagramImage(fill: 1, imageView: firstBlockImageView, name: "One")
+        choseDiagramImage(fill: 2, imageView: secondBlockImageView, name: "Two")
+        choseDiagramImage(fill: 3, imageView: thirdBlockImageView, name: "Three")
+        choseDiagramImage(fill: 4, imageView: fourBlockImageView, name: "Four")
+        choseDiagramImage(fill: 5, imageView: fiveBlockImageView, name: "Five")
+        choseDiagramImage(fill: 6, imageView: sixBlockImageView, name: "Six")
+        choseDiagramImage(fill: 7, imageView: sevenBlockImageView, name: "Seven")
+        choseDiagramImage(fill: 8, imageView: eightBlockImageView, name: "Eight")
+        choseDiagramImage(fill: 9, imageView: nineBlockImageView, name: "Nine")
+        choseDiagramImage(fill: 10, imageView: tenBlockImageView, name: "Ten")
     }
     
-    private func choseDiagramImagee(fill: Float, imageView: UIImageView, name: String) {
+    private func choseDiagramImage(fill: Float, imageView: UIImageView, name: String) {
         let fill = Int(fill)
         
         switch fill {
