@@ -156,28 +156,32 @@ class ViewController: UIViewController {
     
     private func setPoints() {
         for index in 0 ..< angles.count {
-            points.append(calculatePoints(radiusMultiplier: 5, index: index))
+            points.append(calculatePoints(radiusMultiplier: 5, angle: angles[index]))
         }
     }
     
     private var indicatorPoints: [CGPoint] = []
     
     private func setupIndicatorLabelsPosition() {
-        self.view.layoutIfNeeded()
-        indicatorPoints.append(calculatePoints(radiusMultiplier: 5, index: 0))
-        indicatorPoints.append(calculatePoints(radiusMultiplier: 5, index: 4))
+        var pointForCalculation: [CGPoint] = []
+        
+        pointForCalculation.append(calculatePoints(radiusMultiplier: 0, angle: 0, needToMultiple: true))
+        pointForCalculation.append(calculatePoints(radiusMultiplier: 1, angle: 180, needToMultiple: true))
+        pointForCalculation.append(calculatePoints(radiusMultiplier: 1, angle: 270, needToMultiple: true))
+//        indicatorPoints.append(CGPoint(x: pointForCalculation[], y: pointForCalculation[])) // TODO point calculate
+        
         
         indicatorLabel.center = CGPoint(x: (diagramContainerView.frame.width / 2), y: (diagramContainerView.frame.height / 2))
         diagramContainerView.addSubview(indicatorLabel)
         
-//        rightIndicatorLabel.center = CGPoint(x: indicatorPoints[0].x - 5, y: indicatorPoints[0].x)
-//        diagramContainerView.addSubview(rightIndicatorLabel)
-//        
-//        leftIndicatorLabel.center = CGPoint(x: indicatorPoints[1].x + 5, y: indicatorPoints[1].y)
-//        diagramContainerView.addSubview(leftIndicatorLabel)
-//
-//        topIndicatorLabel.center = CGPoint(x: (diagramContainerView.frame.width / 2), y: (diagramContainerView.frame.height / 2))
-//        diagramContainerView.addSubview(topIndicatorLabel)
+        rightIndicatorLabel.center = CGPoint(x: indicatorPoints[0].x - 5, y: indicatorPoints[0].y)
+        diagramContainerView.addSubview(rightIndicatorLabel)
+
+        leftIndicatorLabel.center = CGPoint(x: indicatorPoints[1].x + 5, y: indicatorPoints[1].y)
+        diagramContainerView.addSubview(leftIndicatorLabel)
+
+        topIndicatorLabel.center = CGPoint(x: indicatorPoints[2].x, y: indicatorPoints[2].y - 5)
+        diagramContainerView.addSubview(topIndicatorLabel)
     }
     
     private func setupLabelsPosition() {
@@ -220,13 +224,15 @@ class ViewController: UIViewController {
         halfWidth.append(tenSegmentLabel.intrinsicContentSize.width / 2)
     }
     
-    private func calculatePoints(radiusMultiplier: CGFloat, index: Int) -> CGPoint {
+    private func calculatePoints(radiusMultiplier: CGFloat, angle: CGFloat, needToMultiple: Bool = false) -> CGPoint {
         var point: CGPoint
-        let radius: CGFloat = (diagramContainerView.frame.width / 2) + radiusMultiplier
+        let radiusWithMultiplication: CGFloat = (diagramContainerView.frame.width / 2) * radiusMultiplier
+        let radiusWithoutMultiplication: CGFloat = (diagramContainerView.frame.width / 2) + radiusMultiplier
+        let radius: CGFloat = needToMultiple ? radiusWithMultiplication : radiusWithoutMultiplication
         let center: CGPoint = CGPoint(x: diagramContainerView.frame.width / 2, y: diagramContainerView.frame.height / 2)
         
-        let startX = radius * cos(angles[index] * .pi / 180)
-        let startY = radius * sin(angles[index] * .pi / 180)
+        let startX = radius * cos(angle * .pi / 180)
+        let startY = radius * sin(angle * .pi / 180)
         point = CGPoint(x: center.x + startX, y: center.y + startY)
         
         return point
